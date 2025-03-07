@@ -1,12 +1,18 @@
-name: abstracted-pets-and-things
-description: A Pulumi YAML program that consumes a component written in typescript.
+name: docker-build-abstracted-test-yaml
+description: A test project for docker build component
 runtime: yaml
-variables: {}
-resources: 
-  myPetName:
-    type: random-abstracted:PetAbstracted
+config:
+  baseName:
+    type: string
+    default: ${PULUMI_PROJECT}
+resources:
+  dockerImage:
+    type: docker-abstracted:DockerBuildPush
     properties:
-      size: "medium"
-outputs: 
-  myPetName:
-    value: ${myPetName.petName}
+      dockerFilePath: ./app
+      destination: aws
+outputs:
+  imageRepositoryPath:
+    value: ${dockerImage.repositoryPath}
+  imageRef:
+    value: ${dockerImage.imageRef}

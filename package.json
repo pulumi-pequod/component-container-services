@@ -1,6 +1,6 @@
 {
-    "name": "random-abstracted",
-    "description": "Abstraction on top of the random provider",
+    "name": "docker-abstracted" ,
+    "description": "Abstraction on top of docker and repository push.",
     "version": "0.1.0",
     "dependencies": {
         "@pulumi/aws": "6.70.1",
