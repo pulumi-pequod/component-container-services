@@ -1,0 +1,6 @@
+name: docker-build-abstracted-test-ts
+description: A Typescript project for testing the docker-build-abstracted component
+runtime:
+  name: nodejs
+  options:
+    packagemanager: npm

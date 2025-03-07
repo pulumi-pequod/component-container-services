@@ -7,6 +7,9 @@
         "@pulumi/docker-build": "0.0.10",
         "@pulumi/pulumi": "3.153.1"
     },
+    "scripts": {
+        "postinstall": "(cd .. && npm install);"
+    },
     "devDependencies": {
         "@types/node": "22.13.5"
     }

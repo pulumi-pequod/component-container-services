@@ -12,6 +12,7 @@ export interface DockerBuildPushArgs{
 export class DockerBuildPush extends pulumi.ComponentResource {
     // Return some output tbd
     public readonly repositoryPath: pulumi.Output<string>;
+    public readonly imageRef: pulumi.Output<string>;
 
     constructor(name: string, args: DockerBuildPushArgs, opts?: pulumi.ComponentResourceOptions) {
         super("docker-abstracted:index:DockerBuildPush", name, args, opts);
@@ -21,9 +22,9 @@ export class DockerBuildPush extends pulumi.ComponentResource {
 
         if (destination === "aws") {
         
-            const ecr = new awsx.ecr.Repository("repo", {
+            const ecr = new awsx.ecr.Repository(`${name}-ecr-repo`, {
                 forceDelete: true,
-            });
+            }, { parent: this });
             this.repositoryPath = ecr.repository.repositoryUrl;
             
             // Grab auth credentials for ECR.
@@ -31,7 +32,7 @@ export class DockerBuildPush extends pulumi.ComponentResource {
                 registryId: ecr.repository.registryId,
             });
 
-            const image = new dockerBuild.Image("image", {
+            const image = new dockerBuild.Image(`${name}-docker-image`, {
                 // Enable exec to run a custom docker-buildx binary with support
                 // for Docker Build Cloud (DBC).
                 exec: true,
@@ -68,9 +69,14 @@ export class DockerBuildPush extends pulumi.ComponentResource {
                 context: {
                     location: dockerFilePath,
                 },
-            });
-        }
+            }, { parent: this });
+
+        this.imageRef = image.ref
 
         this.registerOutputs({});
+
+        }
+
+
     }
 }
