@@ -33,7 +33,7 @@ export class ContainerRun extends pulumi.ComponentResource {
                     name: `${name}-container`,
                     image: args.imageReference,
                     cpu: args.cpu || 256, // Default to 0.25 vCPU
-                    memory: args.memory || 1024, // Default to 1GB
+                    memory: args.memory || 512, // Default to 0.5 GB
                     essential: true,
                     portMappings: [{
                         containerPort: 80,
