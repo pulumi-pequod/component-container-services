@@ -1,26 +1,28 @@
-# component-docker-build
-Abstraction for docker build and push to registry.
+# component-container-services
+Abstraction for resources needed when using container services. 
 
-The idea is to deliver a component that takes as input:
-- Path to docker file
-- Simple input to drive where the docker image should be pushed (e.g. AWS ECR, GCP, etc)
+This repo delivers a set of components to abstract the details related to:
+- Creating a docker image and pushing them to a repository (e.g. ECR, Dockerhub, etc).
+- Create container service using the docker image (e.g. ECS, GCP cloud run)
+- Abstraction for whether to use GCP and/or AWS for the service.
 
-So the developer using the component doesn't need to know any details about building and pushing the image.
+This mitigates the cognitive load on the developer to get the infrastructure they need to run their application.
 
 # Usage
 
-In the folder of the project code that is using the component, run the following command.
+In the folder of the project code that is using the component, run the following command using the release you want.
 ```bash
-pulumi package add https://github.com/MitchellGerdisch/component-random-abstracted@v0.1.0
+pulumi package add https://github.com/MitchellGerdisch/component-container-services@v0.1.0
 ```
 
-# Example Program
-The `test-project` folder has an example Pulumi project that uses the component.
+# Example Programs
+There are two test projects provided that use the component:
+- Typescript (`test-project-ts`) and 
+- YAML (`test-project-yaml`)
 
 To use:
-* copy the `test-project` to a local folder.
-* cd to the test project folder.
+* cd to the test project folder you want to use.
 * `pulumi package add https://github.com/MitchellGerdisch/component-random-abstracted@v0.1.0`
 * `pulumi stack init`
-* Modify the code to use one of the allowed sizes (i.e. `small`, `medium`, `large`, `xlarge`) 
+* Modify the program as you want.
 * `pulumi up`

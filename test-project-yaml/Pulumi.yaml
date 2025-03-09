@@ -7,12 +7,16 @@ config:
     default: ${PULUMI_PROJECT}
 resources:
   dockerImage:
-    type: docker-abstracted:DockerBuildPush
+    type: container-services:DockerBuildPush
     properties:
       dockerFilePath: ./app
       destination: aws
+  container: 
+    type: container-services:ContainerRun
+    properties:
+      imageReference: ${dockerImage.imageRef},
 outputs:
   imageRepositoryPath:
     value: ${dockerImage.repositoryPath}
-  imageRef:
-    value: ${dockerImage.imageRef}
+  serviceUrl:
+    value: https://${container.loadbalancerDnsName}

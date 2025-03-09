@@ -5,7 +5,7 @@ import * as dockerBuild from "@pulumi/docker-build";
 
 export interface DockerBuildPushArgs{
     dockerFilePath: string;
-    destination: string; // indicates if the image is to be pushed to, say AWS ECR, or GCP, etc. Defaults to AWS ECR.
+    destination?: string; // indicates if the image is to be pushed to, say AWS ECR, or GCP, etc. Defaults to AWS ECR.
 }
 
 // Build a docker image and push it to a registry
@@ -15,7 +15,7 @@ export class DockerBuildPush extends pulumi.ComponentResource {
     public readonly imageRef: pulumi.Output<string>;
 
     constructor(name: string, args: DockerBuildPushArgs, opts?: pulumi.ComponentResourceOptions) {
-        super("docker-abstracted:index:DockerBuildPush", name, args, opts);
+        super("container-services:index:DockerBuildPush", name, args, opts);
 
         const dockerFilePath = args.dockerFilePath;
         const destination = args.destination || "aws";
@@ -76,7 +76,5 @@ export class DockerBuildPush extends pulumi.ComponentResource {
         this.registerOutputs({});
 
         }
-
-
     }
 }
