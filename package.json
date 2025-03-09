@@ -3,10 +3,10 @@
     "description": "Abstraction on top of container service related resources.",
     "version": "0.1.0",
     "dependencies": {
-        "@pulumi/aws": "6.70.1",
-        "@pulumi/awsx": "2.21.0",
-        "@pulumi/docker-build": "0.0.10",
-        "@pulumi/pulumi": "3.153.1"
+        "@pulumi/aws": "^6.70.1",
+        "@pulumi/awsx": "^2.21.0",
+        "@pulumi/docker-build": "^0.0.10",
+        "@pulumi/pulumi": "^3.154.0"
     },
     "devDependencies": {
         "@types/node": "^22.0.0",

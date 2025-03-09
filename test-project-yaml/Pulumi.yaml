@@ -1,5 +1,5 @@
-name: docker-build-abstracted-test-yaml
-description: A test project for docker build component
+name: container-services-test-project-yaml
+description: A test project for container services components
 runtime: yaml
 config:
   baseName:
@@ -11,12 +11,14 @@ resources:
     properties:
       dockerFilePath: ./app
       destination: aws
-  container: 
-    type: container-services:ContainerRun
-    properties:
-      imageReference: ${dockerImage.imageRef},
+  # container: 
+  #   type: container-services:ContainerRun
+  #   properties:
+  #     imageReference: ${dockerImage.imageRef}
 outputs:
+  imageRef:
+    value: ${dockerImage.imageRef}
   imageRepositoryPath:
     value: ${dockerImage.repositoryPath}
-  serviceUrl:
-    value: https://${container.loadbalancerDnsName}
+  # servi
+  ue: https://${container.loadbalancerDnsName}

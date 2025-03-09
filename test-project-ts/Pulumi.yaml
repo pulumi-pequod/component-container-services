@@ -1,4 +1,4 @@
-name: docker-build-abstracted-test-ts
+name: container-services-test-project-ts
 description: A Typescript project for testing the docker-build-abstracted component
 runtime:
   name: nodejs
