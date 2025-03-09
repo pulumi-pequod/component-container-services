@@ -16,9 +16,7 @@ resources:
     properties:
       imageReference: ${dockerImage.imageRef}
 outputs:
-  imageRef:
+  imageReference:
     value: ${dockerImage.imageRef}
-  imageRepositoryPath:
-    value: ${dockerImage.repositoryPath}
-  # servi
-  ue: https://${container.loadbalancerDnsName}
+  serviceUrl:
+    value: http://${container.loadbalancerDnsName}
