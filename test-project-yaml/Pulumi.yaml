@@ -11,10 +11,10 @@ resources:
     properties:
       dockerFilePath: ./app
       destination: aws
-  # container: 
-  #   type: container-services:ContainerRun
-  #   properties:
-  #     imageReference: ${dockerImage.imageRef}
+  container: 
+    type: container-services:ContainerRun
+    properties:
+      imageReference: ${dockerImage.imageRef}
 outputs:
   imageRef:
     value: ${dockerImage.imageRef}
