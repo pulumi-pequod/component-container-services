@@ -16,10 +16,8 @@ resources:
       memory: ${memory}
 
 outputs:
-  imageReference:
-    value: ${dockerImage.imageRef}
-  serviceUrl:
-    value: http://${container.loadbalancerDnsName}
+  imageReference: ${dockerImage.imageRef}
+  serviceUrl: http://${container.loadbalancerDnsName}
 
 config:
   baseName:

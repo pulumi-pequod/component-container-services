@@ -5,8 +5,8 @@ import * as aws from "@pulumi/aws"; // Required for ECS
 import * as awsx from "@pulumi/awsx";
 import * as pulumi from "@pulumi/pulumi"; // Required for Config and interpolation
 
-import { DockerBuildPush, DockerBuildPushArgs } from "../dockerBuildPush";
-import { ContainerRun, ContainerRunArgs} from "../containerRun";
+import { DockerBuildPush, DockerBuildPushArgs } from "../../dockerBuildPush";
+import { ContainerRun, ContainerRunArgs} from "../../containerRun";
 
 const config = new pulumi.Config();
 const baseName = config.get("baseName") || pulumi.getProject();
