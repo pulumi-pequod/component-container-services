@@ -20,7 +20,15 @@ export class AppImage extends pulumi.ComponentResource {
         const dockerFilePath = args.dockerFilePath;
         
         const ecr = new awsx.ecr.Repository(`${name}-ecr-repo`, {
+            encryptionConfigurations: [{
+                encryptionType: "AES256",
+            }],
+            imageScanningConfiguration: {
+                scanOnPush: true,
+            },
+            imageTagMutability: "IMMUTABLE",
             forceDelete: true,
+
         }, { parent: this });
         this.repositoryPath = ecr.repository.repositoryUrl;
         
