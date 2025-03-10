@@ -18,10 +18,18 @@ export class AppImage extends pulumi.ComponentResource {
         super("container-services:index:AppImage", name, args, opts);
 
         const dockerFilePath = args.dockerFilePath;
+
+        const kmsKey = new aws.kms.Key(`${name}-kms-key`, {
+            description: "KMS key for encrypting ECR images",
+            keyUsage: "ENCRYPT_DECRYPT",
+            isEnabled: true,
+            enableKeyRotation: true,
+        }, { parent: this });
         
         const ecr = new awsx.ecr.Repository(`${name}-ecr-repo`, {
             encryptionConfigurations: [{
-                encryptionType: "AES256",
+                encryptionType: "KMS",
+                kmsKey: kmsKey.arn,
             }],
             imageScanningConfiguration: {
                 scanOnPush: true,
