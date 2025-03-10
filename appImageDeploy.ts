@@ -14,7 +14,7 @@ export class AppImageDeploy extends pulumi.ComponentResource {
     // Return some output tbd
     public readonly loadbalancerDnsName: pulumi.Output<string>;
 
-    constructor(name: string, args: AppImageDeploy, opts?: pulumi.ComponentResourceOptions) {
+    constructor(name: string, args: AppImageDeployArgs, opts?: pulumi.ComponentResourceOptions) {
         super("container-services:index:AppImageDeploy", name, args, opts);
 
         const dockerImage = new AppImage("dockerImage", {
