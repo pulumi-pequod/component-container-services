@@ -14,7 +14,8 @@
   },
   "files": [
       "index.ts",
-      "dockerBuildPush.ts",
-      "containerRun.ts"
+      "appImage.ts",
+      "appDeploy.ts",
+      "appImageDeploy.ts"
   ]
 }

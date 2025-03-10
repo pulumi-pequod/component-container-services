@@ -1,22 +1,20 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as aws from "@pulumi/aws";
 import * as awsx from "@pulumi/awsx";
-import * as dockerBuild from "@pulumi/docker-build";
 
-export interface ContainerRunArgs{
+export interface AppDeployArgs {
     imageReference: pulumi.Input<string>;
     cpu?: number;
     memory?: number;
-    destination?: string; // indicates if the image is to be pushed to, say AWS ECR, or GCP, etc. Defaults to AWS ECR.
 }
 
 // Build a docker image and push it to a registry
-export class ContainerRun extends pulumi.ComponentResource {
+export class AppDeploy extends pulumi.ComponentResource {
     // Return some output tbd
     public readonly loadbalancerDnsName: pulumi.Output<string>;
 
-    constructor(name: string, args: ContainerRunArgs, opts?: pulumi.ComponentResourceOptions) {
-        super("container-services:index:ContainerRun", name, args, opts);
+    constructor(name: string, args: AppDeployArgs, opts?: pulumi.ComponentResourceOptions) {
+        super("container-services:index:AppDeploy", name, args, opts);
 
         // An ALB to serve the container endpoint to the internet.
         const loadbalancer = new awsx.lb.ApplicationLoadBalancer(`${name}-lb`, {}, { parent: this });

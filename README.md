@@ -2,9 +2,9 @@
 Abstraction for resources needed when using container services. 
 
 This repo delivers a set of components to abstract the details related to:
-- Creating a docker image and pushing them to a repository (e.g. ECR, Dockerhub, etc).
-- Create container service using the docker image (e.g. ECS, GCP cloud run)
-- Abstraction for whether to use GCP and/or AWS for the service.
+- Creating a docker image and pushing it to a repository.
+- Deploy container service using the docker image. 
+- Do both the image build and deployment as a single component.
 
 This mitigates the cognitive load on the developer to get the infrastructure they need to run their application.
 
@@ -12,7 +12,7 @@ This mitigates the cognitive load on the developer to get the infrastructure the
 
 In the folder of the project code that is using the component, run the following command using the release you want.
 ```bash
-pulumi package add https://github.com/MitchellGerdisch/component-container-services@v0.1.0
+pulumi package add https://github.com/pulumi-pequod/component-container-services@v0.1.0
 ```
 
 # Example Programs

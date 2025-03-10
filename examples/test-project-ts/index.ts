@@ -5,20 +5,19 @@ import * as aws from "@pulumi/aws"; // Required for ECS
 import * as awsx from "@pulumi/awsx";
 import * as pulumi from "@pulumi/pulumi"; // Required for Config and interpolation
 
-import { DockerBuildPush, DockerBuildPushArgs } from "../../dockerBuildPush";
-import { ContainerRun, ContainerRunArgs} from "../../containerRun";
+import { AppImage, AppImageArgs } from "../../appImage";
+import { AppDeploy, AppDeployArgs } from "../../appDeploy";
 
 const config = new pulumi.Config();
 const baseName = config.get("baseName") || pulumi.getProject();
 
 // Use component to create docker image and push to AWS ECR
-const dockerImage = new DockerBuildPush("dockerImage", {
+const dockerImage = new AppImage("dockerImage", {
     dockerFilePath: "./app",
-    destination: "aws",
 });
 export const imageRepositoryPath = dockerImage.repositoryPath
 
-const container = new ContainerRun("container", {
+const container = new AppDeploy("container", {
     imageReference: dockerImage.imageRef,
 });
 
