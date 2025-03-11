@@ -5,8 +5,8 @@ import * as aws from "@pulumi/aws"; // Required for ECS
 import * as awsx from "@pulumi/awsx";
 import * as pulumi from "@pulumi/pulumi"; // Required for Config and interpolation
 
-import { AppImage, AppImageArgs } from "../../appImage";
-import { AppDeploy, AppDeployArgs } from "../../appDeploy";
+import { AppImage, AppImageArgs } from "component-container-services/appImage";
+import { AppDeploy, AppDeployArgs } from "component-container-services/appDeploy";
 
 const config = new pulumi.Config();
 const baseName = config.get("baseName") || pulumi.getProject();
