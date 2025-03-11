@@ -24,6 +24,7 @@ export class AppImage extends pulumi.ComponentResource {
             keyUsage: "ENCRYPT_DECRYPT",
             isEnabled: true,
             enableKeyRotation: true,
+            deletionWindowInDays: 7,
         }, { parent: this });
         
         const ecr = new awsx.ecr.Repository(`${name}-ecr-repo`, {
