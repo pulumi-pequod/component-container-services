@@ -17,20 +17,8 @@ export class AppDeploy extends pulumi.ComponentResource {
     constructor(name: string, args: AppDeployArgs, opts?: pulumi.ComponentResourceOptions) {
         super("container-services:index:AppDeploy", name, args, opts);
 
-        // Using default VPC for now. 
-        // May add support for custom VPC in the future.
-        const vpc = new awsx.ec2.DefaultVpc(`defaultVpc`, {}, { parent: this })
-        // Security group for the LB
-        const lbSecurityGroup = new aws.ec2.SecurityGroup(`${name}-lb-sg`, {
-            vpcId: vpc.vpcId,
-            ingress: [{ protocol: "tcp", fromPort: 80, toPort: 80, cidrBlocks: [args.accessCidr || "0.0.0.0/0"] }],
-            egress: [{ protocol: "tcp", fromPort: 0, toPort: 0, cidrBlocks: ["0.0.0.0/0"] }],
-        }, { parent: this });
-
         // An ALB to serve the container endpoint to the internet.
-        const loadbalancer = new awsx.lb.ApplicationLoadBalancer(`${name}-lb`, {
-            securityGroups: [lbSecurityGroup.id],
-        }, { parent: this });
+        const loadbalancer = new awsx.lb.ApplicationLoadBalancer(`${name}-lb`, {}, { parent: this });
 
         // ECS cluster
         const cluster = new aws.ecs.Cluster(`${name}-ecs`, {}, { parent: this });
@@ -38,7 +26,7 @@ export class AppDeploy extends pulumi.ComponentResource {
         // Deploy an ECS Service on Fargate to host the application container.
         const service = new awsx.ecs.FargateService(`${name}-service`, {
             cluster: cluster.arn,
-            // assignPublicIp: true,
+            assignPublicIp: true,
             taskDefinitionArgs: {
                 container: {
                     name: `${name}-container`,
