@@ -6,7 +6,7 @@
         "@pulumi/awsx": "2.21.0",
         "@pulumi/docker-build": "0.0.10",
         "@pulumi/pulumi": "3.153.1",
-        "component-container-services": "git+https://github.com/pulumi-pequod/component-container-services.git#v0.8.0"
+        "component-container-services": "git+https://github.com/pulumi-pequod/component-container-services.git"
     },
     "devDependencies": {
         "@types/node": "22.13.5"
