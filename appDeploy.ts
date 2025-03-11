@@ -61,7 +61,7 @@ export class AppDeploy extends pulumi.ComponentResource {
                 },
             },
             networkConfiguration: {
-                subnets: vpc.privateSubnetIds,
+                subnets: vpc.publicSubnetIds,
                 securityGroups: [ecsSecurityGroup.id],
             },
 
