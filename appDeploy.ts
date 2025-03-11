@@ -46,7 +46,7 @@ export class AppDeploy extends pulumi.ComponentResource {
         // Deploy an ECS Service on Fargate to host the application container.
         const service = new awsx.ecs.FargateService(`${name}-service`, {
             cluster: cluster.arn,
-            assignPublicIp: true,
+            // assignPublicIp: true,
             taskDefinitionArgs: {
                 container: {
                     name: `${name}-container`,
