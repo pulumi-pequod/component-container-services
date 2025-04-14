@@ -1,3 +1,3 @@
-import * as experimental from "@pulumi/pulumi/provider/experimental";
-
-experimental.componentProviderHost();
+export { AppImage } from "./appImage";
+export { AppDeploy } from "./appDeploy";
+export { AppImageDeploy } from "./appImageDeploy";
