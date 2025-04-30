@@ -6,6 +6,7 @@ import { AppImage, AppImageArgs } from "./appImage";
 import { AppDeploy, AppDeployArgs } from "./appDeploy";
 
 export interface AppImageDeployArgs {
+    dockerFilePath: string;
     cpu?: number;
     memory?: number;
 }

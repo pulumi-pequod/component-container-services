@@ -6,7 +6,6 @@ export interface AppDeployArgs {
     imageReference: pulumi.Input<string>;
     cpu?: number;
     memory?: number;
-    accessCidr?: string;
 }
 
 // Build a docker image and push it to a registry

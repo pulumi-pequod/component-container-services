@@ -5,7 +5,6 @@ import * as dockerBuild from "@pulumi/docker-build";
 
 export interface AppImageArgs{
     dockerFilePath: string;
-    destination?: string; // indicates if the image is to be pushed to, say AWS ECR, or GCP, etc. Defaults to AWS ECR.
 }
 
 // Build a docker image and push it to a registry
