@@ -34,7 +34,8 @@ export class AppImage extends pulumi.ComponentResource {
             imageScanningConfiguration: {
                 scanOnPush: true,
             },
-            imageTagMutability: "IMMUTABLE",
+            // MUTABLE (which is actually the default) since we are always just pushing the "latest" image.
+            imageTagMutability: "MUTABLE",
             forceDelete: true,
 
         }, { parent: this });
@@ -44,7 +45,7 @@ export class AppImage extends pulumi.ComponentResource {
         const auth = aws.ecr.getAuthorizationTokenOutput({
             registryId: ecr.repository.registryId,
         });
-
+        
         const image = new dockerBuild.Image(`${name}-docker-image`, {
             // Enable exec to run a custom docker-buildx binary with support
             // for Docker Build Cloud (DBC).
