@@ -18,12 +18,16 @@ export class AppImage extends pulumi.ComponentResource {
 
         const dockerFilePath = args.dockerFilePath;
 
+        // Set Owner tag 
+        const tags = {"Owner": `${pulumi.getProject()}-${pulumi.getStack()}`}
+
         const kmsKey = new aws.kms.Key(`${name}-kms-key`, {
             description: "KMS key for encrypting ECR images",
             keyUsage: "ENCRYPT_DECRYPT",
             isEnabled: true,
             enableKeyRotation: true,
             deletionWindowInDays: 7,
+            tags: tags,
         }, { parent: this });
         
         const ecr = new awsx.ecr.Repository(`${name}-ecr-repo`, {
@@ -37,6 +41,7 @@ export class AppImage extends pulumi.ComponentResource {
             // MUTABLE (which is actually the default) since we are always just pushing the "latest" image.
             imageTagMutability: "MUTABLE",
             forceDelete: true,
+            tags: tags,
 
         }, { parent: this });
         this.repositoryPath = ecr.repository.repositoryUrl;

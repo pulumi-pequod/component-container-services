@@ -16,11 +16,14 @@ export class AppDeploy extends pulumi.ComponentResource {
     constructor(name: string, args: AppDeployArgs, opts?: pulumi.ComponentResourceOptions) {
         super("container-services:index:AppDeploy", name, args, opts);
 
+        // Set Owner tag 
+        const tags = {"Owner": `${pulumi.getProject()}-${pulumi.getStack()}`}
+
         // An ALB to serve the container endpoint to the internet.
-        const loadbalancer = new awsx.lb.ApplicationLoadBalancer(`${name}-lb`, {}, { parent: this });
+        const loadbalancer = new awsx.lb.ApplicationLoadBalancer(`${name}-lb`, {tags: tags}, { parent: this });
 
         // ECS cluster
-        const cluster = new aws.ecs.Cluster(`${name}-ecs`, {}, { parent: this });
+        const cluster = new aws.ecs.Cluster(`${name}-ecs`, {tags: tags}, { parent: this });
 
         // Deploy an ECS Service on Fargate to host the application container.
         const service = new awsx.ecs.FargateService(`${name}-service`, {
@@ -39,6 +42,7 @@ export class AppDeploy extends pulumi.ComponentResource {
                     }],
                 },
             },
+            tags: tags,
         }, { parent: this });
 
         // The URL at which the container's HTTP endpoint will be available.
