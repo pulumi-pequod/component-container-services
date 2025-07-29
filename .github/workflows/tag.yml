@@ -1,0 +1,41 @@
+name: Tag Release Workflow
+
+on:
+  push:
+    tags:
+      - '*' # Trigger on any tag push.
+  workflow_dispatch: # Allows manual triggering of the workflow
+
+jobs:
+  distribute-release:
+    permissions:
+      id-token: write
+      contents: read
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref }} # Checkout the specific tag that triggered the workflow
+          fetch-depth: 0 # Ensures the build matches the git tag.
+
+      - name: Authenticate to Pulumi
+        uses: pulumi/auth-actions@v1
+        with:
+          organization: pequod
+          requested-token-type: urn:pulumi:token-type:access_token:organization
+
+      - name: Publish Component to Pulumi Org
+        if: github.event_name == 'push'
+        run: |
+          echo "Publishing latest component version to the pequod Pulumi org."
+          pulumi package publish https://github.com/${{ github.repository }} --publisher pequod
+
+      - name: Manual run - Skip publishing
+        if: github.event_name == 'workflow_dispatch'
+        run: |
+          echo "This is a manual workflow run."
+          echo "Skipping component publishing to prevent accidental releases."
+          echo "To publish, push a new tag instead of running manually."
