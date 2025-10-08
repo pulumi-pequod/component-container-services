@@ -4,13 +4,21 @@ import * as awsx from "@pulumi/awsx";
 import * as dockerBuild from "@pulumi/docker-build";
 
 export interface AppImageArgs{
+    /**
+     * The path to the directory containing the Dockerfile for the image to be built..
+     **/
     dockerFilePath: string;
 }
 
 // Build a docker image and push it to a registry
 export class AppImage extends pulumi.ComponentResource {
-    // Return some output tbd
+    /**
+     * The URI of the repository that was created.
+     **/
     public readonly repositoryPath: pulumi.Output<string>;
+    /**
+     * The image reference (URI) of the image that was built and pushed to the repository.
+     **/
     public readonly imageRef: pulumi.Output<string>;
 
     constructor(name: string, args: AppImageArgs, opts?: pulumi.ComponentResourceOptions) {
