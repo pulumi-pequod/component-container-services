@@ -3,8 +3,19 @@ import * as aws from "@pulumi/aws";
 import * as awsx from "@pulumi/awsx";
 
 export interface AppDeployArgs {
+    /** 
+     * The registry reference for the image to deploy. 
+     **/
     imageReference: pulumi.Input<string>;
+    /**
+     * The number of CPU units to assign to the task.
+     * E.g. 256 (.25 vCPU), 512 (.5 vCPU), 1024 (1 vCPU)
+     **/
     cpu?: number;
+    /**
+     * The amount of memory (in MiB) to assign to the task.
+     * E.g. 512 (0.5 GB), 1024 (1 GB), 2048 (2 GB)
+     **/
     memory?: number;
 }
 
@@ -45,7 +56,9 @@ export class AppDeploy extends pulumi.ComponentResource {
             tags: tags,
         }, { parent: this });
 
-        // The URL at which the container's HTTP endpoint will be available.
+        /**
+         *  The URL at which the container's HTTP endpoint will be available.
+         */
         this.loadbalancerDnsName = loadbalancer.loadBalancer.dnsName
 
         this.registerOutputs({});
