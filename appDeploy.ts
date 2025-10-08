@@ -21,7 +21,9 @@ export interface AppDeployArgs {
 
 // Build a docker image and push it to a registry
 export class AppDeploy extends pulumi.ComponentResource {
-    // Return some output tbd
+    /**
+     *  The URL at which the container's HTTP endpoint will be available.
+     **/
     public readonly loadbalancerDnsName: pulumi.Output<string>;
 
     constructor(name: string, args: AppDeployArgs, opts?: pulumi.ComponentResourceOptions) {
@@ -56,9 +58,6 @@ export class AppDeploy extends pulumi.ComponentResource {
             tags: tags,
         }, { parent: this });
 
-        /**
-         *  The URL at which the container's HTTP endpoint will be available.
-         */
         this.loadbalancerDnsName = loadbalancer.loadBalancer.dnsName
 
         this.registerOutputs({});
