@@ -29,8 +29,11 @@ export class AppDeploy extends pulumi.ComponentResource {
     constructor(name: string, args: AppDeployArgs, opts?: pulumi.ComponentResourceOptions) {
         super("container-services:index:AppDeploy", name, args, opts);
 
-        // Set Owner tag 
-        const tags = {"Owner": `${pulumi.getProject()}-${pulumi.getStack()}`}
+        // Set Owner and Environment tags 
+        const tags = {
+            "Owner": `${pulumi.getProject()}-${pulumi.getStack()}`,
+            "Environment": pulumi.getStack()
+        }
 
         // An ALB to serve the container endpoint to the internet.
         const loadbalancer = new awsx.lb.ApplicationLoadBalancer(`${name}-lb`, {tags: tags}, { parent: this });

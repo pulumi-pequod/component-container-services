@@ -1,7 +1,7 @@
 {
     "name": "container-services" ,
     "description": "Abstraction on top of container service related resources.",
-    "version": "0.9.0",
+    "version": "1.1.4",
     "dependencies": {
         "@pulumi/aws": "^6.70.1",
         "@pulumi/awsx": "^2.21.0",

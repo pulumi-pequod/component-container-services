@@ -26,8 +26,11 @@ export class AppImage extends pulumi.ComponentResource {
 
         const dockerFilePath = args.dockerFilePath;
 
-        // Set Owner tag 
-        const tags = {"Owner": `${pulumi.getProject()}-${pulumi.getStack()}`}
+        // Set Owner and Environment tags 
+        const tags = {
+            "Owner": `${pulumi.getProject()}-${pulumi.getStack()}`,
+            "Environment": pulumi.getStack()
+        }
 
         const kmsKey = new aws.kms.Key(`${name}-kms-key`, {
             description: "KMS key for encrypting ECR images",
