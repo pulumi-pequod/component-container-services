@@ -7,18 +7,6 @@ This repo delivers a set of components to abstract the details related to:
 - Deploy ECS using the docker image. 
 - Do both the image build and deployment as a single component.
 
-# Inputs
-
-* dockerFilePath: Path to local folder containing the app and Dockerfile.
-* cpu (Optional): CPU capacity. Defaults to 256 (i.e. 0.25 vCPU).
-* memory (Optional): Memory capacity. Defaults to 512 (i.e. 0.5GB).
-
-# Outputs
-
-* loadbalancerDnsName: The DNS name for the loadbalancer fronting the app.
-* repositoryPath (appImage): The path for the ECR.
-* imageRef (appImage): The URL for the image that was created and uploade to ECR.
-
 # Usage
 ## Specify Package in `Pulumi.yaml`
 
@@ -27,7 +15,7 @@ Note: If no version is specified, the latest version will be used.
 
 ```
 packages:
-  container-services: https://github.com/pulumi-pequod/component-container-services[@v0.9.0]
+  container-services: https://github.com/pulumi-pequod/component-container-services[@vX.Y.Z]
 ``` 
 
 ## Use SDK in Program
